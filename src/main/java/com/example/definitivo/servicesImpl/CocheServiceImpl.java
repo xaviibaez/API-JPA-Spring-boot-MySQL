@@ -4,10 +4,12 @@ import com.example.definitivo.entities.Coche;
 import com.example.definitivo.repositories.CocheRespository;
 import com.example.definitivo.services.CocheService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CocheServiceImpl implements CocheService {
 
     @Autowired
