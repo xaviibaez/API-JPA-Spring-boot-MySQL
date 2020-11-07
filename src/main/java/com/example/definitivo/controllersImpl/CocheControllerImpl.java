@@ -42,10 +42,10 @@ public class CocheControllerImpl implements CocheController {
     public Coche addCoche(Coche cocheNew) {
          return cocheService.saveCoche(cocheNew);
     }
-    // http://localhost:8080/coches/delete/{id} (GET)
-    @RequestMapping(value = "/coches/delete/{id}", method = RequestMethod.GET, produces = "application/json")
+
+    @GetMapping("/deleteCoche")
     @Override
-    public String deleteCoche(Integer id) {
+    public String deleteCoche(@RequestParam(value = "id") Integer id) {
         return cocheService.deleteCoche(id);
     }
 

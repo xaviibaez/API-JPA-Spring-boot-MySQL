@@ -47,11 +47,15 @@ public class CocheServiceImpl implements CocheService {
 
     @Override
     public String deleteCoche(Integer id) {
-        if (cocheRepository.findById(id).isPresent()) {
-            cocheRepository.deleteById(id);
-            return "Coche: " + id + " eliminado correctamente.";
+        Optional<Coche> cocheDB = cocheRepository.findById(id);
+        if (cocheDB.isPresent()) {
+            Coche cocheToDelete = cocheDB.get();
+            if(!cocheToDelete.getVendido()){
+                cocheRepository.deleteById(id);
+                return "Coche: " + id + " eliminado correctamente.";
+            }
         }
-        return "Error! El coche: " + id +  " no existe";
+        return "Error! El coche: " + id +  " no ha sido eliminado";
     }
 
     public String matricularCoche(Integer id, String matricula){
