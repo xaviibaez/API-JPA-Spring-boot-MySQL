@@ -5,6 +5,8 @@ import com.example.definitivo.repositories.CocheRespository;
 import com.example.definitivo.services.CocheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,24 +54,33 @@ public class CocheServiceImpl implements CocheService {
         return "Error! El coche: " + id +  " no existe";
     }
 
-    @Override
-    public String updateCoche(Coche cocheUpdated) {
-        Integer num = cocheUpdated.getId();
-        if (cocheRepository.findById(num).isPresent()) {
-            Coche cocheToUpdate = new Coche();
-            cocheToUpdate.setId(cocheUpdated.getId());
-            cocheToUpdate.setMarca(cocheUpdated.getMarca());
-            cocheToUpdate.setCoste(cocheUpdated.getCoste());
-            cocheToUpdate.setFechaIngreso(cocheUpdated.getFechaIngreso());
-            cocheToUpdate.setFechaVenta(cocheUpdated.getFechaVenta());
-            cocheToUpdate.setVendido(cocheUpdated.getVendido());
-            cocheToUpdate.setMatricula(cocheUpdated.getMatricula());
-            cocheToUpdate.setPrecioVenta(cocheUpdated.getPrecioVenta());
-            cocheToUpdate.setIdConcesionario(cocheToUpdate.getIdConcesionario());
-            cocheRepository.save(cocheToUpdate);
+    public String matricularCoche(Integer id, String matricula){
+        Optional<Coche> cocheDB = cocheRepository.findById(id);
+        if (cocheDB.isPresent()) {
+            Coche cocheToUpdate = cocheDB.get();
+            if(!cocheToUpdate.getVendido()){
+                cocheToUpdate.setMatricula(matricula);
+                cocheRepository.save(cocheToUpdate);
 
-            return "Coche: " + cocheUpdated.getId() + " modificado";
+                return "Se ha matriculado el coche: " + id;
+            }
         }
-        return "Error al modificar el coche:" + cocheUpdated.getId();
+        return "NO se ha matricular el coche: " + id;
+    }
+
+    public String venderCoche(Integer id, Float precioVenta){
+        Optional<Coche> cocheDB = cocheRepository.findById(id);
+        if (cocheDB.isPresent()) {
+            Coche cocheToUpdate = cocheDB.get();
+            if(!cocheToUpdate.getVendido() && !cocheToUpdate.getMatricula().isEmpty()){
+                cocheToUpdate.setPrecioVenta(precioVenta);
+                cocheToUpdate.setFechaVenta(new Date());
+                cocheToUpdate.setVendido(true);
+                cocheRepository.save(cocheToUpdate);
+
+                return "Se ha vendido el coche: " + id;
+            }
+        }
+        return "NO se ha vendido el coche: " + id;
     }
 }

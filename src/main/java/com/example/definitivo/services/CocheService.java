@@ -11,5 +11,6 @@ public interface CocheService {
     public List<Coche> findCocheByIdConcesionario(Integer id, String orderBy);
     public Coche saveCoche(Coche cocheNew);
     public String deleteCoche(Integer id);
-    public String updateCoche(Coche cocheUpdated);
+    public String matricularCoche(Integer id, String matricula);
+    public String venderCoche(Integer id, Float precioVenta);
 }

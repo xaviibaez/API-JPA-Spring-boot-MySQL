@@ -49,11 +49,13 @@ public class CocheControllerImpl implements CocheController {
         return cocheService.deleteCoche(id);
     }
 
-    // http://localhost:8080/coches/update (PATCH)
-    @RequestMapping(value = "/customers/update", method = RequestMethod.PATCH, produces = "application/json")
-    @Override
-    public String updateCoche(Coche cocheUpdated) {
-        return cocheService.updateCoche(cocheUpdated);
+    @PostMapping("/matricularCoche")
+    public String matricularCoche(@RequestParam(value = "id") Integer id, @RequestParam(value = "matricula") String matricula) {
+        return cocheService.matricularCoche(id, matricula);
+    }
+    @PostMapping("/venderCoche")
+    public String venderCoche(@RequestParam(value = "id") Integer id, @RequestParam(value = "precioVenta") Float precioVenta) {
+        return cocheService.venderCoche(id, precioVenta);
     }
 
     // http://localhost:8080/test (GET)
