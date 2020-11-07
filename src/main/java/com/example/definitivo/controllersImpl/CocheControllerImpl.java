@@ -15,31 +15,27 @@ public class CocheControllerImpl implements CocheController {
     @Autowired
     CocheService cocheService;
 
-    // http://localhost:8080/coches (GET)
     @RequestMapping(value = "/coches", method = RequestMethod.GET, produces = "application/json")
     @Override
     public List<Coche> getCoches() {
         return cocheService.findAllCoches();
     }
 
-    // http://localhost:8080/coches/1 (GET)
     @GetMapping("/coche")
     @Override
     public Optional<Coche> getCocheById(@RequestParam(value = "id") Integer id) {
         return cocheService.findCocheById(id);
     }
 
-    // http://localhost:8080/cochesByConcesionario/1 (GET)
     @GetMapping("/cochesByConcesionario")
     @Override
     public List<Coche> getCocheByIdConcesionario(@RequestParam(value = "id") Integer id, @RequestParam(value = "orderBy") String orderBy) {
         return cocheService.findCocheByIdConcesionario(id, orderBy);
     }
 
-    // http://localhost:8080/coches/add (POST)
-    @RequestMapping(value = "/coches/add", method = RequestMethod.POST, produces = "application/json")
+    @PostMapping("/addCoche")
     @Override
-    public Coche addCoche(Coche cocheNew) {
+    public String addCoche(@RequestBody Coche cocheNew) {
          return cocheService.saveCoche(cocheNew);
     }
 

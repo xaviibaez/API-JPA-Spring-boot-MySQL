@@ -38,11 +38,18 @@ public class CocheServiceImpl implements CocheService {
     }
 
     @Override
-    public Coche saveCoche(Coche cocheNew) {
+    public String saveCoche(Coche cocheNew) {
         if (cocheNew != null) {
-            return cocheRepository.save(cocheNew);
+            Optional<Coche> cocheDB = cocheRepository.findById(cocheNew.getId());
+            if (cocheDB.isPresent()) {
+                return "El coche: " + cocheDB.get().getId() + " existe";
+            }
+            else{
+                cocheRepository.save(cocheNew);
+                return "El coche: " + cocheNew.getId() + " ha sido añadido";
+            }
         }
-        return new Coche();
+        return null;
     }
 
     @Override

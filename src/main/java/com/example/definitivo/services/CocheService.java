@@ -9,7 +9,7 @@ public interface CocheService {
     public List<Coche> findAllCoches();
     public Optional<Coche> findCocheById(Integer id);
     public List<Coche> findCocheByIdConcesionario(Integer id, String orderBy);
-    public Coche saveCoche(Coche cocheNew);
+    public String saveCoche(Coche cocheNew);
     public String deleteCoche(Integer id);
     public String matricularCoche(Integer id, String matricula);
     public String venderCoche(Integer id, Float precioVenta);

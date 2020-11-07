@@ -1,5 +1,7 @@
 package com.example.definitivo.entities;
 
+import org.springframework.data.annotation.ReadOnlyProperty;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -8,7 +10,8 @@ import java.util.Date;
 public class Coche {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ReadOnlyProperty
     private Integer id;
     private String marca;
     private Float coste;
