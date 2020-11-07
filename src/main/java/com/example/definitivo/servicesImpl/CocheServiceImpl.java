@@ -28,6 +28,7 @@ public class CocheServiceImpl implements CocheService {
 
     @Override
     public List<Coche> findCocheByIdConcesionario(Integer id, String orderBy) {
+        //El orderBy es segun quiera el usuario order de una manera u otra
         if(orderBy.equals("fechaVenta")){
             return cocheRepository.findByIdConcesionarioOrderByFechaVenta(id);
         }
@@ -39,6 +40,7 @@ public class CocheServiceImpl implements CocheService {
 
     @Override
     public String saveCoche(Coche cocheNew) {
+        //La comprobacion del Id es porque se auto genera el id en la bbdd
         if (cocheNew != null && cocheNew.getId() == null) {
             cocheRepository.save(cocheNew);
             return "El coche: " + cocheNew.getId() + " ha sido añadido";
@@ -48,10 +50,13 @@ public class CocheServiceImpl implements CocheService {
 
     @Override
     public String deleteCoche(Integer id) {
+        //cocheDB -> reocegemos el objeto coche a traves de su id
         Optional<Coche> cocheDB = cocheRepository.findById(id);
         if (cocheDB.isPresent()) {
+            //Si existe lo mapeamos
             Coche cocheToDelete = cocheDB.get();
             if(!cocheToDelete.getVendido()){
+                //Si no esta vendido lo eliminamos
                 cocheRepository.deleteById(id);
                 return "Coche: " + id + " eliminado correctamente.";
             }
@@ -78,6 +83,7 @@ public class CocheServiceImpl implements CocheService {
         if (cocheDB.isPresent()) {
             Coche cocheToUpdate = cocheDB.get();
             if(!cocheToUpdate.getVendido() && !cocheToUpdate.getMatricula().isEmpty()){
+                //Entiendo que para un coche poder ser vendido tiene que estar matriculado
                 cocheToUpdate.setPrecioVenta(precioVenta);
                 cocheToUpdate.setFechaVenta(new Date());
                 cocheToUpdate.setVendido(true);
@@ -90,10 +96,13 @@ public class CocheServiceImpl implements CocheService {
     }
 
     public Float beneficios(Integer idConcesionario){
+        //La peticion de beneficios sera global o de un concesionario en funcion del parametro
         if(idConcesionario == null){
+            //SELECT IFNULL(SUM(precio_venta)-SUM(coste),0) as beneficio FROM coches;
             return cocheRepository.beneficiosCadena();
         }
         else{
+            //SELECT IFNULL(SUM(precio_venta)-SUM(coste),0) as beneficio FROM coches WHERE id_concesionario = 1;
             return cocheRepository.beneficiosConcesionario(idConcesionario);
         }
     }

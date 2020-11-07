@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/*
+* Lista de metodos y querys para acceder a la bbdd
+ */
 @Repository
 public interface CocheRespository  extends JpaRepository<Coche, Integer> {
     Void save(Optional<Coche> cocheToUpdate);
