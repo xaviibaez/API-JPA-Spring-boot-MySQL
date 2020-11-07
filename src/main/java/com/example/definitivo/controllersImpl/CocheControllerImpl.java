@@ -4,9 +4,7 @@ import com.example.definitivo.controllers.CocheController;
 import com.example.definitivo.entities.Coche;
 import com.example.definitivo.services.CocheService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +28,14 @@ public class CocheControllerImpl implements CocheController {
     public Optional<Coche> getCocheById(Integer id) {
         return cocheService.findCocheById(id);
     }
+
+    // http://localhost:8080/cochesByConcesionario/1 (GET)
+    @GetMapping("/cochesByConcesionario")
+    @Override
+    public List<Coche> getCocheByIdConcesionario(@RequestParam(value = "id") Integer id, @RequestParam(value = "orderBy") String orderBy) {
+        return cocheService.findCocheByIdConcesionario(id, orderBy);
+    }
+
     // http://localhost:8080/coches/add (POST)
     @RequestMapping(value = "/coches/add", method = RequestMethod.POST, produces = "application/json")
     @Override

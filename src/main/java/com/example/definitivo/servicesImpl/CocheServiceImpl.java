@@ -5,7 +5,6 @@ import com.example.definitivo.repositories.CocheRespository;
 import com.example.definitivo.services.CocheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +22,17 @@ public class CocheServiceImpl implements CocheService {
     @Override
     public Optional<Coche> findCocheById(Integer id) {
         return cocheRepository.findById(id);
+    }
+
+    @Override
+    public List<Coche> findCocheByIdConcesionario(Integer id, String orderBy) {
+        if(orderBy.equals("fechaVenta")){
+            return cocheRepository.findByIdConcesionarioOrderByFechaVenta(id);
+        }
+        else if(orderBy.equals("fechaIngreso")){
+            return cocheRepository.findByIdConcesionarioOrderByFechaIngreso(id);
+        }
+        return cocheRepository.findByIdConcesionario(id);
     }
 
     @Override

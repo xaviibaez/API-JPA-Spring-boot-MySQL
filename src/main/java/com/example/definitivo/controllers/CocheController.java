@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface CocheController {
     public List<Coche> getCoches();
     public Optional<Coche> getCocheById(Integer id);
+    public List<Coche> getCocheByIdConcesionario(Integer id, String orderBy);
     public Coche addCoche(Coche cocheNew);
     public String deleteCoche(Integer id);
     public String updateCoche(Coche cocheUpdated);
