@@ -23,9 +23,9 @@ public class CocheControllerImpl implements CocheController {
     }
 
     // http://localhost:8080/coches/1 (GET)
-    @RequestMapping(value = "/coches/{id}", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping("/coche")
     @Override
-    public Optional<Coche> getCocheById(Integer id) {
+    public Optional<Coche> getCocheById(@RequestParam(value = "id") Integer id) {
         return cocheService.findCocheById(id);
     }
 
