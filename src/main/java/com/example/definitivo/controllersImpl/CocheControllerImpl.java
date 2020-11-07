@@ -24,28 +24,36 @@ public class CocheControllerImpl implements CocheController {
         return cocheService.findAllCoches();
     }
 
+    // http://localhost:8080/coches/1 (GET)
+    @RequestMapping(value = "/coches/{id}", method = RequestMethod.GET, produces = "application/json")
     @Override
     public Optional<Coche> getCocheById(Integer id) {
-        return Optional.empty();
+        return cocheService.findCocheById(id);
     }
-
+    // http://localhost:8080/coches/add (POST)
+    @RequestMapping(value = "/coches/add", method = RequestMethod.POST, produces = "application/json")
     @Override
     public Coche addCoche(Coche cocheNew) {
-        return null;
+         return cocheService.saveCoche(cocheNew);
     }
-
+    // http://localhost:8080/coches/delete/{id} (GET)
+    @RequestMapping(value = "/coches/delete/{id}", method = RequestMethod.GET, produces = "application/json")
     @Override
     public String deleteCoche(Integer id) {
-        return null;
+        return cocheService.deleteCoche(id);
     }
 
+    // http://localhost:8080/coches/update (PATCH)
+    @RequestMapping(value = "/customers/update", method = RequestMethod.PATCH, produces = "application/json")
     @Override
     public String updateCoche(Coche cocheUpdated) {
-        return null;
+        return cocheService.updateCoche(cocheUpdated);
     }
 
+    // http://localhost:8080/test (GET)
+    @RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json")
     @Override
     public String test() {
-        return null;
+        return "¡Funciona!";
     }
 }
