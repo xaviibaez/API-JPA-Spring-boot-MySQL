@@ -13,4 +13,5 @@ public interface CocheService {
     public String deleteCoche(Integer id);
     public String matricularCoche(Integer id, String matricula);
     public String venderCoche(Integer id, Float precioVenta);
+    public Float beneficios(Integer idConcesionario);
 }

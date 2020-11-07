@@ -54,7 +54,12 @@ public class CocheControllerImpl implements CocheController {
         return cocheService.venderCoche(id, precioVenta);
     }
 
-    // http://localhost:8080/test (GET)
+    @GetMapping("/getBeneficios")
+    @Override
+    public Float beneficios(@RequestParam(value = "idConcesionario", required = false) Integer idConcesionario) {
+        return cocheService.beneficios(idConcesionario);
+    }
+
     @RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json")
     @Override
     public String test() {

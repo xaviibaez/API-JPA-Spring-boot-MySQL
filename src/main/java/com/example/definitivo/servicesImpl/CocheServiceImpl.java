@@ -88,4 +88,13 @@ public class CocheServiceImpl implements CocheService {
         }
         return "NO se ha vendido el coche: " + id;
     }
+
+    public Float beneficios(Integer idConcesionario){
+        if(idConcesionario == null){
+            return cocheRepository.beneficiosCadena();
+        }
+        else{
+            return cocheRepository.beneficiosConcesionario(idConcesionario);
+        }
+    }
 }

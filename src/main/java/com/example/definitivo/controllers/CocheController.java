@@ -11,6 +11,7 @@ public interface CocheController {
     public List<Coche> getCocheByIdConcesionario(Integer id, String orderBy);
     public String addCoche(Coche cocheNew);
     public String deleteCoche(Integer id);
+    public Float beneficios(Integer idConcesionario);
 
     public String test();
 }
