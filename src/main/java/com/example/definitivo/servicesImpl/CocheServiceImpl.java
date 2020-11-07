@@ -39,15 +39,9 @@ public class CocheServiceImpl implements CocheService {
 
     @Override
     public String saveCoche(Coche cocheNew) {
-        if (cocheNew != null) {
-            Optional<Coche> cocheDB = cocheRepository.findById(cocheNew.getId());
-            if (cocheDB.isPresent()) {
-                return "El coche: " + cocheDB.get().getId() + " existe";
-            }
-            else{
-                cocheRepository.save(cocheNew);
-                return "El coche: " + cocheNew.getId() + " ha sido añadido";
-            }
+        if (cocheNew != null && cocheNew.getId() == null) {
+            cocheRepository.save(cocheNew);
+            return "El coche: " + cocheNew.getId() + " ha sido añadido";
         }
         return null;
     }
