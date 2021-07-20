@@ -39,7 +39,7 @@ public class CocheControllerImpl implements CocheController {
          return cocheService.saveCoche(cocheNew);
     }
 
-    @GetMapping("/deleteCoche")
+    @DeleteMapping("/deleteCoche")
     @Override
     public String deleteCoche(@RequestParam(value = "id") Integer id) {
         return cocheService.deleteCoche(id);
