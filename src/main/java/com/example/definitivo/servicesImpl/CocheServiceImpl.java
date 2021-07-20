@@ -23,7 +23,7 @@ public class CocheServiceImpl implements CocheService {
 
     @Override
     public Optional<Coche> findCocheById(Integer id) {
-        return cocheRepository.findById(id);
+        return Optional.ofNullable(cocheRepository.findById(id).orElseThrow(() -> new CocheNotFoundException(id)));
     }
 
     @Override
